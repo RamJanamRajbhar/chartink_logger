@@ -1,31 +1,28 @@
 from flask import Flask, request
-import csv
 import os
+import json
 from datetime import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import traceback
+
 
 app = Flask(__name__)
 
-# CSV file path
-CSV_FILE = "chartink_alerts.csv"
+# Setup Google Sheets API using credentials from Render environment variable
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
+key_dict = json.loads(os.environ["GOOGLE_CREDENTIALS"])
+creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
+client = gspread.authorize(creds)
 
-# Create file with headers if it doesn't exist
-if not os.path.isfile(CSV_FILE):
-    with open(CSV_FILE, mode="w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            "Received At (Local Time)",
-            "Stock",
-            "Trigger Price",
-            "Triggered At",
-            "Scan Name",
-            "Scan URL",
-            "Alert Name",
-            "Webhook URL"
-        ])
+# Open your sheet by name
+sheet = client.open("Chartink Alerts").sheet1  # Make sure this matches your sheet name exactly
 
 @app.route("/", methods=["POST"])
 def webhook():
-    """Receive webhook JSON from Chartink and log to CSV."""
     data = request.json
     if not data:
         return "❌ No JSON received", 400
@@ -36,11 +33,10 @@ def webhook():
     if len(stocks_list) != len(prices_list):
         return "❌ Stock and price counts do not match", 400
 
-    with open(CSV_FILE, mode="a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+    try:
         for stock, price in zip(stocks_list, prices_list):
-            writer.writerow([
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),  # local timestamp
+            sheet.append_row([
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 stock.strip(),
                 price.strip(),
                 data.get("triggered_at", ""),
@@ -49,10 +45,14 @@ def webhook():
                 data.get("alert_name", ""),
                 data.get("webhook_url", "")
             ])
+            print(f"✅ Logged to Google Sheets: {stock.strip()} at {price.strip()}")
+    except Exception as e:
+        print(f"❌ Google Sheets error: {e}")
+        traceback.print_exc()
+        return f"❌ Failed to log to Google Sheets: {e}", 500
 
-    return "✅ Alert logged", 200
-
+    return "✅ Alert logged to Google Sheets", 200
 
 if __name__ == "__main__":
-    # Host set to 0.0.0.0 so ngrok can tunnel to it
     app.run(host="0.0.0.0", port=5000)
+
