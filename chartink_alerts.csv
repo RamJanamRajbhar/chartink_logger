@@ -1,0 +1,11 @@
+Received At (Local Time),Stock,Trigger Price,Triggered At,Scan Name,Scan URL,Alert Name,Webhook URL
+2025-09-01 14:05:06,IREDA,142.13,2:05 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:10:07,INDUSTOWER,340.65,2:10 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:25:07,OFSS,8452,2:25 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:35:07,OIL,397.9,2:35 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:35:07,IDEA,6.55,2:35 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:35:07,PHOENIXLTD,1519.4,2:35 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:40:06,LICI,857.3,2:40 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 14:50:06,SBILIFE,1807,2:50 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 15:00:07,IDFCFIRSTB,68.94,3:00 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
+2025-09-01 15:00:07,TECHM,1507.7,3:00 pm,15 RSI + HMA Crossover,15-rsi-hma-crossover,Alert for 15 RSI + HMA Crossover,https://640161472c6b.ngrok-free.app
