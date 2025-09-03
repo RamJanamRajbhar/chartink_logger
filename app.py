@@ -17,6 +17,7 @@ scope = [
 key_dict = json.loads(os.environ["GOOGLE_CREDENTIALS"])
 creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
 client = gspread.authorize(creds)
+print("✅ Google Sheets client authorized")
 
 # Open your sheet by name
 sheet = client.open("Chartink Alerts").sheet1  # Make sure this matches your sheet name exactly
@@ -34,6 +35,7 @@ def webhook():
         return "❌ Stock and price counts do not match", 400
 
     try:
+        print("📌 Entering Google Sheets logging block")
         for stock, price in zip(stocks_list, prices_list):
             sheet.append_row([
                 datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
